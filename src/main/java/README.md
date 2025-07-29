@@ -105,7 +105,7 @@ POST/members
 
    -> /members/{memberId}/items/{itemId}
 
-## ※ REST API -> Query String    vs    Path Variable 
+## ※ REST API -> [ Query String ] / [Path Variable] 
    - Query String
 
        -> 선택적 값 (필수값을 수도 아닐 수도 있음)
