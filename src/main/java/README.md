@@ -41,7 +41,7 @@
 ## ※ URI / URL
 - 같다고 생각하고 진행
 
-## DNS (Domain Name System)
+## ※ DNS (Domain Name System)
 - IP주소 몰라도 도메인 주소(www.naver.com)만 치고 사이트로 들어갈 수 있는 이유 
   => 사람이 읽는 도메인 주소를 컴퓨터가 이해할 수 있는 IP주소로 변환해주는 서버
 
@@ -130,7 +130,8 @@ POST/members
 - 여러 라이브러리들의 집합체
 
 ## ※ 3 Layered Architecture
- ![설명자료](images/3_Layered_Architecture.jpg)
+
+![설명자료](images/3_Layered_Architecture.jpg)
  1. Presentation layer  ( "Controller" 클래스 )
      - 사용자 요청(프론트엔드 -> 백엔드)을 받음
      - 클라이언트와 소통하는 역할
