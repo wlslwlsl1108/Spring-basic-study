@@ -131,7 +131,8 @@ POST/members
 
 ## ※ 3 Layered Architecture
 
-![설명자료](images/3_Layered_Architecture.jpg)
+![설명자료](images/11.png)
+
  1. Presentation layer  ( "Controller" 클래스 )
      - 사용자 요청(프론트엔드 -> 백엔드)을 받음
      - 클라이언트와 소통하는 역할
