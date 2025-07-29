@@ -131,7 +131,7 @@ POST/members
 
 ## ※ 3 Layered Architecture
 
-![설명자료](images/11.png)
+![설명자료](https://github.com/wlslwlsl1108/Spring-basic-study/blob/main/images/11.png?raw=true)
 
  1. Presentation layer  ( "Controller" 클래스 )
      - 사용자 요청(프론트엔드 -> 백엔드)을 받음
