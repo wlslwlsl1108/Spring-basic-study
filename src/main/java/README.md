@@ -65,23 +65,28 @@
 
 /members
 
+
 [단건 조회]
 
 GET/members/{memberId}
 -> 전체 members 중에 {memberId} 조회해달라는 뜻
+
 
 [단건 수정]
 
 PUT/members/{memberId}
 PATCH/members/{memberId}
 
+
 [단건 삭제]
 
 DELETE/members/{memberId}
 
+
 [단건 등록]
 
 POST/members
+
 -> DB에 데이터를 저장하는데, 아직 안들어갔기 때문에 memberId 있을 수 없다
 
 
