@@ -14,7 +14,7 @@
 ## ※ TCP
 - Handshake 과정을 통해 안정적 연결
 
-   -> 신뢰성 확보 / 연결 지향적
+   -> 신뢰성 확보 / 연결 지향적 
 
    -> 3 way Handshake = "연결 시작할 때"
 
@@ -105,12 +105,14 @@ POST/members
 
    -> /members/{memberId}/items/{itemId}
 
-## ※ REST API
+## ※ REST API -> [ Query String ] / [ Path Variable ] 
    - Query String
 
-       -> 필수값을 수도 아닐 수도 있음
+       -> 선택적 값 (필수값을 수도 아닐 수도 있음)
 
-       => ? 뒤에 나옴
+       -> 여러개일 경우 ' & ' 로 구분
+
+       => ? 뒤에 나옴  (필터링, 검색, 옵션 지정 ...)
 
       ex) /members?age=20&status=active
 
