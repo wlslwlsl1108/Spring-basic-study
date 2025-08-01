@@ -14,13 +14,16 @@ public class Memo {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String title;
     private String content;
 
-    public Memo(String content) {
+    public Memo(String title, String content) {
+        this.title = title;
         this.content = content;
     }
 
-    public void updateContent(String content){
+    public void updateContent(String title, String content){
+        this.title = title;
         this.content = content;
     }
 }

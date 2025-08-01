@@ -20,10 +20,11 @@ public class MemoService {
     // CRUD - "C (Create)"  => 생성
     @Transactional
     public MemoResponse save(MemoRequest memoRequest) {
-        Memo savedMemo = memoRepository.save(new Memo(memoRequest.getContent()));
+        Memo savedMemo = memoRepository.save(new Memo(memoRequest.getTitle(), memoRequest.getContent()));
 
         return new MemoResponse(
                 savedMemo.getId(),
+                savedMemo.getTitle(),
                 savedMemo.getContent()
         );
     }
@@ -37,6 +38,7 @@ public class MemoService {
         for (Memo memo : memos) {
             MemoResponse memoResponse = new MemoResponse(
                     memo.getId(),
+                    memo.getTitle(),
                     memo.getContent()
             );
             dtos.add(memoResponse);
@@ -50,9 +52,10 @@ public class MemoService {
         Memo memo = memoRepository.findById(memoId).orElseThrow(
                 () -> new IllegalArgumentException("해당하는 memoId가 없습니다.")
         );
-        memo.updateContent(memoRequest.getContent());
+        memo.updateContent(memoRequest.getTitle(), memoRequest.getContent());
         return new MemoResponse(
                 memo.getId(),
+                memo.getTitle(),
                 memo.getContent()
         );
     }
@@ -75,6 +78,6 @@ public class MemoService {
                 () -> new IllegalArgumentException("해당하는 memoId가 없습니다.")
         );
 
-        return new MemoResponse(memo.getId(), memo.getContent());
+        return new MemoResponse(memo.getId(), memo.getTitle(), memo.getContent());
     }
 }
