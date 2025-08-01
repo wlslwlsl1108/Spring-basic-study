@@ -14,6 +14,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    // CRUD - "C (Create)"  => 생성
     @PostMapping("/members")
     public MemberResponse createMember(
             @RequestBody MemberRequest memberRequest
@@ -21,11 +22,14 @@ public class MemberController {
         return memberService.save(memberRequest);
     }
 
+    // CRUD - "R (Read)"  => 전체 조회
     @GetMapping("/members")
     public List<MemberResponse> getMembers() {
+
         return memberService.findMembers();
     }
 
+    // CRUD - "R (Read)"  => 단건 조회
     @GetMapping("/members/{memberId}")
     public MemberResponse getMember(
             @PathVariable Long memberId
@@ -33,6 +37,7 @@ public class MemberController {
         return memberService.findMember(memberId);
     }
 
+    // CRUD - "U (Update)"  => 수정
     @PutMapping("/members/{memberId}")
     public MemberResponse updateMember(
             @PathVariable Long memberId,
@@ -41,6 +46,7 @@ public class MemberController {
         return memberService.update(memberId, memberRequest);
     }
 
+    // CRUD - "D (Delete)"  => 삭제
     @DeleteMapping("/members/{memberId}")
     public void deleteMember(
             @PathVariable Long memberId

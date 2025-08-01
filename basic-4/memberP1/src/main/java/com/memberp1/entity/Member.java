@@ -16,12 +16,13 @@ public class Member {
     private Long id;
     private String name;
 
+    // "생성자" -> DB에서 만들어주는 id 제외한 나머지
     public Member(String name) {
+        // id는 DB에서 만들어줌 -> name 만 해주면 됨
         this.name = name;
     }
 
     public void updateName(String name){
         this.name = name;
     }
-
 }
