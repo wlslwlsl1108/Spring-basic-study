@@ -31,10 +31,10 @@ public class MemoService {
     // CRUD - "R (Read)"  => 전체 조회
     @Transactional(readOnly = true)
     public List<MemoResponse> findMemos() {
-        List<Memo> Memos = memoRepository.findAll();
+        List<Memo> memos = memoRepository.findAll();
         List<MemoResponse> dtos = new ArrayList<>();
 
-        for (Memo memo : Memos) {
+        for (Memo memo : memos) {
             MemoResponse memoResponse = new MemoResponse(
                     memo.getId(),
                     memo.getContent()

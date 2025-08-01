@@ -25,7 +25,6 @@ public class MemoController {
     // CRUD - "R (Read)"  => 전체 조회
     @GetMapping("/memos")
     public List<MemoResponse> getMemos() {
-
         return memoService.findMemos();
     }
 
