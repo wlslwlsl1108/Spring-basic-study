@@ -5,9 +5,12 @@ import com.p1.dto.MovieResponse;
 import com.p1.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 // JSON 응답 컨트롤러
 // 컴포넌트 스캔 대상 -> 스프링이 "빈"으로 등록
@@ -27,5 +30,11 @@ public class MovieController {
     ){
         // 서비스 호출 후, 결과반환
         return ResponseEntity.ok(movieService.save(request));
+    }
+
+    // CRUD의 [R] -> 영화 전체 조회
+    @GetMapping("/movies")
+    public ResponseEntity<List<MovieResponse>> getAllMovies(){
+        return ResponseEntity.ok(movieService.findAll());
     }
 }
