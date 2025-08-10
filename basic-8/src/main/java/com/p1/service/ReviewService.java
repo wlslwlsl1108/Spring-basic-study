@@ -10,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service                   // 서비스 계층
 @RequiredArgsConstructor   // 생성자 주입
 public class ReviewService {
@@ -33,5 +36,26 @@ public class ReviewService {
                 savedReview.getContent()
         );
 
+    }
+
+    // CRUD의 [R] -> 해당 영화의 리뷰 전체 조회
+    @Transactional(readOnly = true)
+    public List<ReviewResponse> findAll(Long movieId) {
+        Movie movie = movieRepository.findById(movieId).orElseThrow(
+                () -> new IllegalArgumentException("그런 movieId의 movie는 없어요")
+        );
+
+        List<Review> movies = reviewRepository.findAllByMovie(movie);
+        List<ReviewResponse> dtos = new ArrayList<>();
+
+        for (Review review : movies) {
+            dtos.add(
+                    new ReviewResponse(
+                            review.getId(),
+                            review.getContent()
+                    )
+            );
+        }
+        return dtos;
     }
 }
