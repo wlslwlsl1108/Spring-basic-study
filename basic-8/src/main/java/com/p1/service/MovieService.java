@@ -41,6 +41,17 @@ public class MovieService {
                 .toList();
     }
 
+    // CRUD의 [R] -> 영화 단건 조회
+    @Transactional(readOnly = true)
+    public MovieResponse findById(Long movieId){
+
+        Movie movie = movieRepository.findById(movieId).orElseThrow(
+                () -> new IllegalArgumentException("해당하는 movieId가 없습니다.")
+        );
+
+        return new MovieResponse(movie.getId(), movie.getTitle());
+    }
+
     // CRUD의 [U] -> 영화 수정
     @Transactional
     public MovieResponse update(Long movieId, MovieRequest movieRequest){

@@ -35,6 +35,14 @@ public class MovieController {
         return ResponseEntity.ok(movieService.findAll());
     }
 
+    // CRUD의 [R] -> 영화 단건 조회
+    @GetMapping("/movies/{movieId}")
+    public ResponseEntity<MovieResponse> getMovie(
+            @PathVariable Long movieId
+    ){
+        return ResponseEntity.ok(movieService.findById(movieId));
+    }
+
     // CRUD의 [U] -> 영화 수정
     @PutMapping("/movies/{movieId}")
     public ResponseEntity<MovieResponse> updateMovie(
