@@ -40,4 +40,17 @@ public class MovieService {
                 .map(m -> new MovieResponse(m.getId(), m.getTitle()))
                 .toList();
     }
+
+    // CRUD의 [U] -> 영화 수정
+    @Transactional
+    public MovieResponse update(Long movieId, MovieRequest movieRequest){
+        Movie movie = movieRepository.findById(movieId).orElseThrow(
+                () -> new IllegalArgumentException("해당하는 movieId가 없습니다.")
+        );
+        movie.updateTitle(movieRequest.getTitle());
+        return new MovieResponse(
+                movie.getId(),
+                movie.getTitle()
+        );
+    }
 }

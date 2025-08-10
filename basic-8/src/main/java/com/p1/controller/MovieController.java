@@ -5,10 +5,7 @@ import com.p1.dto.MovieResponse;
 import com.p1.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,5 +33,14 @@ public class MovieController {
     @GetMapping("/movies")
     public ResponseEntity<List<MovieResponse>> getAllMovies(){
         return ResponseEntity.ok(movieService.findAll());
+    }
+
+    // CRUD의 [U] -> 영화 수정
+    @PutMapping("/movies/{movieId}")
+    public ResponseEntity<MovieResponse> updateMovie(
+            @RequestBody MovieRequest movierequest,
+            @PathVariable("movieId") Long movieId
+    ){
+        return ResponseEntity.ok(movieService.update(movieId, movierequest));
     }
 }
