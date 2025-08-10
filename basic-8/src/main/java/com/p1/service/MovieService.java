@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 // final 필드 자동 주입
 @RequiredArgsConstructor
+
 public class MovieService {
 
     // 레포지토리 의존성

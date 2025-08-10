@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 // JSON 응답 컨트롤러
 // 컴포넌트 스캔 대상 -> 스프링이 "빈"으로 등록
 @RestController
-
 // final 필드 자동 주입
 @RequiredArgsConstructor
 public class MovieController {
@@ -21,7 +20,7 @@ public class MovieController {
     // @RequiredArgsConstructor 덕분에 생성자 코드작성 불필요
     private final MovieService movieService;
 
-    // CRUD의 "C" -> 영화 생성(저장)
+    // CRUD의 [C] -> 영화 생성(저장)
     @PostMapping("/movies")
     public ResponseEntity<MovieResponse> saveMovie(
             @RequestBody MovieRequest request
