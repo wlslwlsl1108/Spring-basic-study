@@ -51,4 +51,13 @@ public class MovieController {
     ){
         return ResponseEntity.ok(movieService.update(movieId, movierequest));
     }
+
+    // CRUD의 [D] -> 영화 삭제
+    @DeleteMapping("/movies/{movieId}")
+    public ResponseEntity<Void> deleteMovie(
+            @PathVariable Long movieId
+    ){
+        movieService.delete(movieId);
+        return ResponseEntity.noContent().build();
+    }
 }

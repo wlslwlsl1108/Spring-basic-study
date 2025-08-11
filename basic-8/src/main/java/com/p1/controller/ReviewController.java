@@ -33,4 +33,17 @@ public class ReviewController {
     ){
         return ResponseEntity.ok(reviewService.findAll(movieId));
     }
+
+    // CRUD의 [U] -> 리뷰 수정
+    @PutMapping("/movies/{movieId}/reviews/{reviewId}")
+    public ResponseEntity<ReviewResponse> updateReview(
+            @RequestBody ReviewRequest reviewrequest,
+            @PathVariable ("movieId") Long movieId,
+            @PathVariable ("reviewId") Long reviewId
+    ){
+        return ResponseEntity.ok(reviewService.update(movieId, reviewId, reviewrequest));
+    }
+
+
+
 }

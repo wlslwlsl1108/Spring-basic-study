@@ -4,6 +4,7 @@ import com.p1.dto.MovieRequest;
 import com.p1.dto.MovieResponse;
 import com.p1.entity.Movie;
 import com.p1.repository.MovieRepository;
+import com.p1.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,10 +21,11 @@ public class MovieService {
 
     // 레포지토리 의존성
     private final MovieRepository movieRepository;
+    private final ReviewRepository reviewRepository;
 
     // CRUD의 [C] -> 영화 생성(저장)
     @Transactional
-    public MovieResponse save(MovieRequest request){
+    public MovieResponse save(MovieRequest request) {
         Movie movie = new Movie(request.getTitle());
         Movie savedMovie = movieRepository.save(movie);
         return new MovieResponse(
@@ -34,7 +36,7 @@ public class MovieService {
 
     // CRUD의 [R] -> 영화 전체 조회
     @Transactional(readOnly = true)        // 조회 최적화
-    public List<MovieResponse> findAll(){  // findAll() = JPA 기본 제공
+    public List<MovieResponse> findAll() {  // findAll() = JPA 기본 제공
         List<Movie> movies = movieRepository.findAll();
         return movies.stream()
                 .map(m -> new MovieResponse(m.getId(), m.getTitle()))
@@ -43,7 +45,7 @@ public class MovieService {
 
     // CRUD의 [R] -> 영화 단건 조회
     @Transactional(readOnly = true)
-    public MovieResponse findById(Long movieId){
+    public MovieResponse findById(Long movieId) {
 
         Movie movie = movieRepository.findById(movieId).orElseThrow(
                 () -> new IllegalArgumentException("해당하는 movieId가 없습니다.")
@@ -54,7 +56,7 @@ public class MovieService {
 
     // CRUD의 [U] -> 영화 수정
     @Transactional
-    public MovieResponse update(Long movieId, MovieRequest movieRequest){
+    public MovieResponse update(Long movieId, MovieRequest movieRequest) {
         Movie movie = movieRepository.findById(movieId).orElseThrow(
                 () -> new IllegalArgumentException("해당하는 movieId가 없습니다.")
         );
@@ -63,5 +65,16 @@ public class MovieService {
                 movie.getId(),
                 movie.getTitle()
         );
+    }
+
+    // CRUD의 [D] -> 영화 삭제
+    @Transactional
+    public void delete(Long movieId) {
+        Movie movie = movieRepository.findById(movieId).orElseThrow(
+                () -> new IllegalArgumentException("해당하는 movieId가 없습니다.")
+        );
+        reviewRepository.deleteByMovie(movie);
+        movieRepository.delete(movie);
+
     }
 }
