@@ -30,7 +30,7 @@ public class ReviewService {
     @Transactional
     public ReviewResponse save(ReviewRequest request, Long movieId) {
         Movie movie = movieRepository.findById(movieId).orElseThrow(
-                () -> new IllegalArgumentException("그런 movieId의 movie는 없어요")// 영화 조회
+                () -> new IllegalArgumentException("그런 movieId의 movie는 없어요.")// 영화 조회
         );
         Review review = new Review(
                 request.getContent(),
@@ -48,7 +48,7 @@ public class ReviewService {
     @Transactional(readOnly = true)
     public List<ReviewResponse> findAll(Long movieId) {
         Movie movie = movieRepository.findById(movieId).orElseThrow(
-                () -> new IllegalArgumentException("그런 movieId의 movie는 없어요")
+                () -> new IllegalArgumentException("그런 movieId의 movie는 없어요.")
         );
 
         List<Review> movies = reviewRepository.findAllByMovie(movie);
@@ -63,6 +63,16 @@ public class ReviewService {
             );
         }
         return dtos;
+    }
+
+    // CRUD의 [R] -> 리뷰 단건 조회
+    @Transactional(readOnly = true)
+    public ReviewResponse findOne(Long movieId, Long reviewId) {
+        Review review = reviewRepository.findByMovie_IdAndId(movieId, reviewId).orElseThrow(
+                () -> new IllegalArgumentException("그런 movieId의 movie는 없어요.")
+        );
+
+        return new ReviewResponse(review.getId(), review.getContent());
     }
 
     // CRUD의 [U] -> 리뷰 수정

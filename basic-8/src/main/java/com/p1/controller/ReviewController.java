@@ -1,10 +1,13 @@
 package com.p1.controller;
 
+import com.p1.dto.MovieResponse;
 import com.p1.dto.ReviewRequest;
 import com.p1.dto.ReviewResponse;
+import com.p1.entity.Movie;
 import com.p1.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +36,16 @@ public class ReviewController {
     ){
         return ResponseEntity.ok(reviewService.findAll(movieId));
     }
+
+    // CRUD의 [R] -> 리뷰 단건 조회
+    @GetMapping("/movies/{movieId}/reviews/{reviewId}")
+    public ResponseEntity<ReviewResponse> getReview(
+            @PathVariable Long movieId,
+            @PathVariable Long reviewId
+    ){
+        return ResponseEntity.ok(reviewService.findOne(movieId, reviewId));
+    }
+
 
     // CRUD의 [U] -> 리뷰 수정
     @PutMapping("/movies/{movieId}/reviews/{reviewId}")
