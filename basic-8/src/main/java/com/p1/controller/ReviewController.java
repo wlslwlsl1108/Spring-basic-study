@@ -38,12 +38,22 @@ public class ReviewController {
     @PutMapping("/movies/{movieId}/reviews/{reviewId}")
     public ResponseEntity<ReviewResponse> updateReview(
             @RequestBody ReviewRequest reviewrequest,
-            @PathVariable ("movieId") Long movieId,
-            @PathVariable ("reviewId") Long reviewId
+            @PathVariable Long movieId,
+            @PathVariable Long reviewId
     ){
         return ResponseEntity.ok(reviewService.update(movieId, reviewId, reviewrequest));
     }
 
+    // CRUD의 [D] -> 리뷰 삭제
+    @DeleteMapping("/movies/{movieId}/reviews/{reviewId}")
+    public ResponseEntity<Void> deleteReview(
+            @PathVariable Long movieId,
+            @PathVariable Long reviewId
+    ){
+        reviewService.delete(movieId, reviewId);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }
+

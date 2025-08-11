@@ -70,10 +70,19 @@ public class ReviewService {
     @Transactional
     public ReviewResponse update(Long movieId, Long reviewId, ReviewRequest request) {
         Review review = reviewRepository.findByMovie_IdAndId(movieId, reviewId)
-                .orElseThrow(() -> new IllegalArgumentException("그런 id의 review는 없어요"));
+                .orElseThrow(() -> new IllegalArgumentException("그런 id의 review는 없습니다."));
         review.updateContent(request.getContent()); // 변경 감지
         return new ReviewResponse(review.getId(), review.getContent());
     }
 
+    // CRUD의 [D] -> 리뷰 삭제
+    @Transactional
+    public void delete(Long movieId, Long reviewId) {
+        Review review = reviewRepository.findByMovie_IdAndId(movieId, reviewId).orElseThrow(
+                () -> new IllegalArgumentException("그런 id의 review는 없습니다.")
+        );
+        reviewRepository.delete(review);
+
+    }
 
 }
