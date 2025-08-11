@@ -3,7 +3,6 @@ package com.p1.dto;
 import lombok.Getter;
 
 @Getter
-
 public class MovieResponse {
 
     private final Long id;

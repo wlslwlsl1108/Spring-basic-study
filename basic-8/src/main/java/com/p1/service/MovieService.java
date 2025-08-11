@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 //서비스 계층
 @Service
@@ -37,7 +36,9 @@ public class MovieService {
     // CRUD의 [R] -> 영화 전체 조회
     @Transactional(readOnly = true)        // 조회 최적화
     public List<MovieResponse> findAll() {  // findAll() = JPA 기본 제공
+
         List<Movie> movies = movieRepository.findAll();
+
         return movies.stream()
                 .map(m -> new MovieResponse(m.getId(), m.getTitle()))
                 .toList();
@@ -50,7 +51,6 @@ public class MovieService {
         Movie movie = movieRepository.findById(movieId).orElseThrow(
                 () -> new IllegalArgumentException("해당하는 movieId가 없습니다.")
         );
-
         return new MovieResponse(movie.getId(), movie.getTitle());
     }
 
@@ -61,6 +61,7 @@ public class MovieService {
                 () -> new IllegalArgumentException("해당하는 movieId가 없습니다.")
         );
         movie.updateTitle(movieRequest.getTitle());
+
         return new MovieResponse(
                 movie.getId(),
                 movie.getTitle()
@@ -75,6 +76,5 @@ public class MovieService {
         );
         reviewRepository.deleteByMovie(movie);
         movieRepository.delete(movie);
-
     }
 }

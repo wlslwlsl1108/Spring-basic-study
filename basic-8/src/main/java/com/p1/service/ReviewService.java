@@ -1,7 +1,5 @@
 package com.p1.service;
 
-import com.p1.dto.MovieRequest;
-import com.p1.dto.MovieResponse;
 import com.p1.dto.ReviewRequest;
 import com.p1.dto.ReviewResponse;
 import com.p1.entity.Movie;
@@ -9,12 +7,8 @@ import com.p1.entity.Review;
 import com.p1.repository.MovieRepository;
 import com.p1.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +35,6 @@ public class ReviewService {
                 savedReview.getId(),
                 savedReview.getContent()
         );
-
     }
 
     // CRUD의 [R] -> 해당 영화의 리뷰 전체 조회
@@ -71,18 +64,21 @@ public class ReviewService {
         Review review = reviewRepository.findByMovie_IdAndId(movieId, reviewId).orElseThrow(
                 () -> new IllegalArgumentException("그런 movieId의 movie는 없어요.")
         );
-
         return new ReviewResponse(review.getId(), review.getContent());
     }
 
     // CRUD의 [U] -> 리뷰 수정
-    // com/p1/service/ReviewService.java (메서드 추가)
     @Transactional
     public ReviewResponse update(Long movieId, Long reviewId, ReviewRequest request) {
         Review review = reviewRepository.findByMovie_IdAndId(movieId, reviewId)
                 .orElseThrow(() -> new IllegalArgumentException("그런 id의 review는 없습니다."));
+
         review.updateContent(request.getContent()); // 변경 감지
-        return new ReviewResponse(review.getId(), review.getContent());
+
+        return new ReviewResponse(
+                review.getId(),
+                review.getContent()
+        );
     }
 
     // CRUD의 [D] -> 리뷰 삭제
@@ -92,7 +88,5 @@ public class ReviewService {
                 () -> new IllegalArgumentException("그런 id의 review는 없습니다.")
         );
         reviewRepository.delete(review);
-
     }
-
 }

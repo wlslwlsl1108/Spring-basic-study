@@ -6,7 +6,6 @@ import com.p1.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 // JSON 응답 컨트롤러
